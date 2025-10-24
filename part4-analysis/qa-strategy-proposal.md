@@ -45,21 +45,6 @@
 | Automatizado | APIs críticas, flujos de negocio frecuentes, integración con Kafka/MongoDB |
 | Manual | UI exploratoria, casos poco frecuentes, validación visual y experiencia de usuario |
 
-**Flujo simplificado por sprint:**  
-```text
-Sprint Planning
-      |
-      v
-Desarrollo --> QA identifica pruebas
-      |
-      v
-Testing Automatizado + Manual
-      |
-      v
-Validación de Regresión
-      |
-      v
-Release
 
 ---
 
