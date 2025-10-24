@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "ee79ae93-49e8-44c1-9465-c932f876ed26",
+		"name": "Carga Basica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39714553"
+	},
+	"item": [
+		{
+			"name": "Carga Basica Exitosa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"if (!pm.environment.get(\"responseTimes\")) {\r",
+							"    pm.environment.set(\"responseTimes\", JSON.stringify([]));\r",
+							"}\r",
+							"\r",
+							"let times = JSON.parse(pm.environment.get(\"responseTimes\"));\r",
+							"times.push(pm.response.responseTime);\r",
+							"pm.environment.set(\"responseTimes\", JSON.stringify(times));\r",
+							"console.log(\"Tiempos de respuesta:\", times);\r",
+							"\r",
+							"if (times.length >= 10) {\r",
+							"    let sum = times.reduce((a, b) => a + b, 0);\r",
+							"    let avg = sum / times.length;\r",
+							"    let maxDeviation = Math.max(...times.map(t => Math.abs(t - avg)));\r",
+							"    pm.test(\"Tiempo promedio de respuesta menor a 500ms\", function () {\r",
+							"        pm.expect(avg).to.be.below(500);\r",
+							"    });\r",
+							"    pm.test(\"Desviación máxima aceptable menor a 100ms\", function () {\r",
+							"        pm.expect(maxDeviation).to.be.below(100);\r",
+							"    });\r",
+							"    pm.environment.set(\"responseTimes\", JSON.stringify([]));\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}1",
+					"host": [
+						"{{baseUrl}}{{Posts}}1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
