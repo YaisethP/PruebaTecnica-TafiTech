@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "782ab82b-175a-4635-9dad-3c541f0284f8",
+		"name": "API Testing JsonPlaceholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39714553"
+	},
+	"item": [
+		{
+			"name": "Get Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has expected properties\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"userId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"title\");\r",
+							"    pm.expect(jsonData).to.have.property(\"body\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}10",
+					"host": [
+						"{{baseUrl}}{{Posts}}10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fallido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404 or empty response\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(Object.keys(jsonData).length).to.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}101",
+					"host": [
+						"{{baseUrl}}{{Posts}}101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Post Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID generado\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.not.be.null;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Nuevo POST\",\r\n  \"body\": \"Post de prueba creado para la prueba tecnica de Tafi Tech\",\r\n  \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}",
+					"host": [
+						"{{baseUrl}}{{Posts}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Post Fallido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(Object.keys(jsonData).length).to.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 1,\r\n    \"title\": \"Post de prueba\",\r\n    \"body\": \"Contenido\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}1",
+					"host": [
+						"{{baseUrl}}{{Posts}}1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validacion Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Campos tienen el tipo correcto\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData.title).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.body).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title no está vacío\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body tiene al menos 10 caracteres\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.body.length).to.be.at.least(10);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}22",
+					"host": [
+						"{{baseUrl}}{{Posts}}22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validacion Fallido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Campos obligatorios no existen o son inválidos\", function () {\r",
+							"    pm.expect(jsonData.userId).to.be.oneOf([undefined, null]);\r",
+							"    pm.expect(jsonData.id).to.be.oneOf([undefined, null]);\r",
+							"    pm.expect(jsonData.title).to.be.oneOf([undefined, null, \"\"]);\r",
+							"    pm.expect(jsonData.body).to.be.oneOf([undefined, null, \"\"]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}{{Posts}}101",
+					"host": [
+						"{{baseUrl}}{{Posts}}101"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
