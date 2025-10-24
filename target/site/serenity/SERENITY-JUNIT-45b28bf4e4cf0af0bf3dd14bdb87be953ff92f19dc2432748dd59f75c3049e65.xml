@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="Automatización de pruebas de Saucedemo" skipped="0" tests="2" time="6.01" timestamp="2025-10-24 01:20:45"><testcase name="Flujo exitoso de compra"/><testcase name="Login fallido con usuario inválido"/></testsuite>
