@@ -1,0 +1,21 @@
+{
+	"id": "099d8ce1-d99d-481d-b848-017c42dddf8d",
+	"name": "API Testing JsonPlaceholder",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "https://jsonplaceholder.typicode.com/",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Posts",
+			"value": "posts/",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-10-23T16:33:48.560Z",
+	"_postman_exported_using": "Postman/11.68.4"
+}
